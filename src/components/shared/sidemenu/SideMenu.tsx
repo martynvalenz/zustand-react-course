@@ -3,6 +3,7 @@ import { IoSpeedometerOutline, IoPawOutline, IoLogOutOutline, IoHeartOutline, Io
 import { NavLink } from 'react-router-dom';
 import './SideMenu.css';
 import { SideMenuItem } from './SideMenuItem';
+import { useAuthStore } from '../../../stores';
 
 
 interface MenuItem {
@@ -20,10 +21,9 @@ const menuItems: MenuItem[] = [
   { title: 'Boda', subTitle: 'Invitados a la boda', href: '/dashboard/wedding-invitation', Icon: IoHeartOutline },
 ];
 
-
-
-
 export const SideMenu = () => {
+  const logOutUser = useAuthStore(state => state.logOutUser);
+  const user = useAuthStore(state => state.user);
 
   return (
     <div id="menu" className="bg-gray-900 min-h-screen z-10 text-slate-300 w-80 left-0 overflow-y-scroll">
@@ -45,7 +45,7 @@ export const SideMenu = () => {
             <img className="rounded-full w-8 h-8" src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="" />
           </span>
           <span className="text-sm md:text-base font-bold">
-            Edward Tompson
+            {user?.fullName || 'Usuario'}
           </span>
         </a>
       </div>
@@ -62,7 +62,7 @@ export const SideMenu = () => {
 
 
         {/* Logout */}
-        <NavLink to={'/auth/login'} className="mt-10">
+        <a onClick={logOutUser} className="mt-10 cursor-pointer">
           <div>
             <IoLogOutOutline />
           </div>
@@ -70,7 +70,7 @@ export const SideMenu = () => {
             <span className="text-lg text-slate-300 font-bold leading-5">Logout</span>
             <span className="text-sm text-slate-500 hidden md:block">Cerrar sesión</span>
           </div>
-        </NavLink>
+        </a>
 
       </nav>
     </div>
