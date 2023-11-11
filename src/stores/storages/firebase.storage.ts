@@ -1,5 +1,5 @@
 import { createJSONStorage, type StateStorage } from "zustand/middleware";
-const firebaseUrl = 'https://gp-logics-dev.firebaseio.com/zustand';
+const firebaseUrl = '';
 
 const firebaseApi:StateStorage = {
   getItem: async (key: string):Promise<string|null> => {
